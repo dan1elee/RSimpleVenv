@@ -36,12 +36,13 @@ Makefile, for instance:
 
 RLIBS=./rlibs
 
+all: setup
+        Rscript ./my_R_script.sh
+
 setup:
         mkdir -p $(RLIBS)
         bash R_setup.sh Rpackages.txt $(RLIBS)
 
-all: setup
-        Rscript ./my_R_script.sh
 ```
 
 This would run the R code with the local library directory.
