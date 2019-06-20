@@ -1,5 +1,7 @@
 # Simple Local Package Environment for R
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3250860.svg)](https://doi.org/10.5281/zenodo.3250860)
+
 This creates a "virtualenv" for R that can be easily setup through the command 
 line and that works with Rscript (which packrat doesn't (easily?)).
 
