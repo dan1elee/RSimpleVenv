@@ -20,7 +20,7 @@ err() { echo -e "\e[31m$*${res}"; exit 1; }
 
 install() {
 	log "Installing $1";
-	Rscript ./utils/install_if_not_exist.R "$1"
+	Rscript ./install_if_not_exist.R "$1"
 	# exit on failure
 	if [ ! $? == 0 ]
 	then
