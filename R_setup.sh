@@ -36,6 +36,7 @@ fi
 
 PACKAGE_FILE="$1"
 LIBDIR=$(realpath "$2")
+mkdir -p ${LIBDIR}
 
 # Ensure that this is the only libPath from now on.
 echo ".libPaths(c('${LIBDIR}'))" > .Rprofile
