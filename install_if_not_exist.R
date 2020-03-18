@@ -36,7 +36,7 @@ if (startsWith(pkg, "github:")) {
     }
     Sys.setenv(R_REMOTES_NO_ERRORS_FROM_WARNINGS="true")
     # install_github returns the package name (yay!)
-    pkg <- devtools::install_github(pkg)
+    pkgName <- devtools::install_github(pkg)
 } else if (startsWith(pkg, "local:")) {
     pkgPath <- substring(pkg, nchar("local:")+1, nchar(pkg))
     pkgName <- basename(pkgPath)
@@ -46,16 +46,28 @@ if (startsWith(pkg, "github:")) {
     }
     devtools::build(pkgPath)
     devtools::install(pkgPath)
-    pkg <- pkgName
 } else {
-    if (pkg %in% installed.packages()) {
+    version <- NULL
+    if (grepl('==', pkg)) {
+        pkgName <- sub('==(.*)', '', pkg)
+        version <- sub('(.*)==', '', pkg)
+    } else {
+        pkgName <- pkg
+    }
+
+    if (pkgName %in% installed.packages()) {
         cat("Package", pkg, "exists.\n")
         quit()
     }
-    install.packages(pkg, Sys.getenv("R_LIBS"), repos=REPOS, 
-                     dependencies=c("Depends", "Imports", "LinkingTo"))
+
+    if (pkgName == 'devtools') {
+        install.packages(pkgName, Sys.getenv('R_LIBS'), repos=REPOS, 
+                         dependencies=c('Depends', 'Imports', 'LinkingTo'))
+    } else {
+        devtools::install_version(pkgName, version=version, repos=REPOS)
+    }
 }
 
 # Test if it works
-if (!library(pkg, character.only=T, logical.return=T))
+if (!library(pkgName, character.only=T, logical.return=T))
     quit(status=1, save='no')
