@@ -9,7 +9,7 @@
 # Date: 2019-06-20
 # License: MIT
 
-REPOS <- c("https://cran.r-project.org")
+REPOS <- c("https://mirrors.tuna.tsinghua.edu.cn/CRAN/")
 
 # Parse args
 args <- commandArgs(trailingOnly=T)
